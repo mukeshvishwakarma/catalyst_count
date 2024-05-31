@@ -1,0 +1,150 @@
+{% extends 'base_generic.html' %}
+{% block title %}
+Query Builder
+{% endblock title %}
+{% block content %}
+  <div class="col-md-12 mt-5">
+    <form method="POST" class="post-form">
+      {% csrf_token %}
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h4>Query Builder</h4>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-md-4">
+            <div class="form-group">
+              <input type="text"
+                     placeholder="Keyword."
+                     class="form-control"
+                     id="Keyword"
+                     name="Keyword">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <select class="form-control" id="industry" name="industry">
+                <option value="" disabled>
+                  Industry
+                </option>
+                {% for inds in inds_comp %}
+                  <option value="{{ inds }}">
+                    {{ inds }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <select class="form-control" id="year_founded" name="year_founded">
+                <option value="" selected disabled>
+                  Year Founded
+                </option>
+                {% for ydt in year_dt %}
+                  <option value="{{ ydt}}">
+                    {{ ydt}}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <select class="form-control" id="City" name="City">
+                <option value="" selected disabled>
+                  City
+                </option>
+                {% for cty in city_dt %}
+                  <option value="{{ cty }}">
+                    {{ cty }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <select class="form-control" id="State" name="State">
+                <option value="" selected disabled>
+                  State
+                </option>
+                {% for sts in sts_dt %}
+                  <option value="{{ sts }}">
+                    {{ sts }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <select class="form-control" id="Country" name="Country">
+                <option value="" selected disabled>
+                  Country
+                </option>
+                {% for coun in coun_dt %}
+                  <option value="{{ coun }}"
+      >
+                    {{ coun }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <select class="form-control" id="EmployeeFROM" name="EmployeeFROM">
+                <option value="" selected disabled>
+                  Employee(FROM)
+                </option>
+                {% for cee in cee_dt %}
+                  <option value="{{ cee }}">
+                    {{ cee }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <select class="form-control" id="EmployeeTO" name="EmployeeTO">
+                <option value="" selected disabled>
+                  Employee(To)
+                </option>
+                {% for tee in tee_dt %}
+                  <option value="{{ tee }}">
+                    {{ tee }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mt-2">
+            <button type="submit" class="btn btn-primary btn-sm">Query Date</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="resetForm()">Reset</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script>
+    function resetForm() {
+      document.getElementById("Keyword").value = "";
+      document.getElementById("industry").selectedIndex = 0;
+      document.getElementById("year_founded").selectedIndex = 0;
+      document.getElementById("City").selectedIndex = 0;
+      document.getElementById("State").selectedIndex = 0;
+      document.getElementById("Country").selectedIndex = 0;
+      document.getElementById("EmployeeFROM").selectedIndex = 0;
+      document.getElementById("EmployeeTO").selectedIndex = 0;
+    }
+  </script>
+{% endblock content %}

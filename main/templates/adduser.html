@@ -1,0 +1,38 @@
+{% extends 'base_generic.html' %}
+{% block title %}
+    Add User
+{% endblock title %}
+{% block content %}
+    <div class="container mt-5">
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}{{ message }}{% endfor %}
+            </div>
+        {% endif %}
+        <h4>Add User</h4>
+        <form method="post">
+            {% csrf_token %}
+            <div class="col-md-4 mt-3">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text"
+                           class="form-control"
+                           id="username"
+                           name="username"
+                           required
+                           class="col-md-4">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password"
+                           class="form-control"
+                           id="password"
+                           name="password"
+                           required
+                           class="col-md-4">
+                </div>
+                <button type="submit" class="btn btn-primary">AddUser</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

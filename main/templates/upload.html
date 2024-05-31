@@ -1,0 +1,73 @@
+<!-- template.html -->
+
+{% extends 'base_generic.html' %}
+{% block content %}
+  <div class="container mt-4">
+    <h4>Upload Data</h4>
+    <form id="upload-form" class="mt-2">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="file">Choose File:</label>
+        <input type="file" class="form-control-file" id="file" name="file">
+      </div>
+      <button type="button" class="btn btn-primary btn-sm mt-3" onclick="uploadFile()">Start Upload</button>
+    </form>
+    <div class="progress mt-3" style="display: none;">
+      <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background: red;"></div>
+    </div>
+    <div id="upload-message" class="alert alert-success mt-3" style="display: none;">Upload is done!</div>
+  </div>
+  <script>
+    function uploadFile() {
+      const fileInput = document.getElementById('file');
+      const file = fileInput.files[0];
+      const chunkSize = 1024 * 1024; // 1MB chunks
+      const totalChunks = Math.ceil(file.size / chunkSize);
+      const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+      const progressBar = document.getElementById('progress-bar');
+      const progressBarContainer = document.querySelector('.progress');
+      const uploadMessage = document.getElementById('upload-message');
+
+      progressBarContainer.style.display = '';
+
+      for (let i = 0; i < totalChunks; i++) {
+        const chunk = file.slice(i * chunkSize, (i + 1) * chunkSize);
+        const formData = new FormData();
+        formData.append('file', chunk);
+        formData.append('file_id', file.name);
+        formData.append('chunk_number', i + 1);
+        formData.append('total_chunks', totalChunks);
+        formData.append('filename', file.name);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload-chunk/');
+        xhr.setRequestHeader('X-CSRFToken', csrfToken);
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            const percentComplete = ((i + 1) / totalChunks) * 100;
+            progressBar.style.width = percentComplete + '%';
+            if (percentComplete >= 100) {
+              progressBar.style.background = '#007bff';
+              uploadMessage.style.display = 'block';
+              setTimeout(function() {
+                progressBarContainer.style.display = 'none';
+                uploadMessage.style.display = 'none';
+              }, 120000); // Hide after 2 minutes
+            }
+          } else {
+            console.error('Upload failed');
+          }
+        };
+
+        xhr.onerror = function() {
+          console.error('Error occurred during upload');
+          progressBarContainer.style.display = 'none';
+        };
+
+        xhr.send(formData);
+      }
+    }
+  </script>
+{% endblock %}

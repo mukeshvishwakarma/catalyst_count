@@ -1,0 +1,10 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h4>Results</h4>
+  <ul>
+    {% for result in results %}
+      <li>{{ result.name }} - {{ result.locality }} - {{ result.industry }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

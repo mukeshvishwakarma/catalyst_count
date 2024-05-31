@@ -1,0 +1,68 @@
+here's a basic README.md file for your project:
+
+
+# Catalyst Count Project
+
+This project is designed to handle the uploading and processing of company data files in CSV format. It utilizes Django, a high-level Python web framework, for backend development and provides functionality for chunked file upload.
+
+## Features
+
+- **Upload CSV Files**: Users can upload CSV files containing company data.
+- **Chunked File Upload**: Large files are uploaded in chunks to prevent memory overload.
+- **Data Processing**: Uploaded files are processed to extract relevant information about companies.
+- **Database Storage**: Processed company data is stored in a database.
+
+## Installation
+
+1. Clone the repository:
+
+git clone https://github.com/your-username/catalyst_count.git
+
+
+2. Install Python dependencies:
+
+pip install -r requirements.txt
+
+
+3. Run database migrations:
+
+python manage.py migrate
+
+
+4. Start the development server:
+
+python manage.py runserver
+
+csharp
+Copy code
+
+5. Access the application at http://localhost:8000/upload
+
+## Usage
+
+1. Navigate to the upload page.
+2. Choose a CSV file containing company data and upload it.
+3. The file will be processed, and the extracted company information will be stored in the database.
+4. You can view the uploaded data by accessing the appropriate views in the application.
+
+## File Structure
+
+- **catalyst_count/**
+- **main/**: Contains the main Django application.
+ - **models.py**: Defines the database models.
+ - **views.py**: Contains the view logic for handling file uploads and data processing.
+ - **urls.py**: Defines URL patterns for the application.
+ - **templates/**: Contains HTML templates.
+ - **static/**: Contains static files such as CSS and JavaScript.
+- **catalyst_count/**: Django project settings.
+- **media/**: Directory for uploaded files.
+
+## Dependencies
+
+- Django: Web framework for Python.
+- Python: Programming language used for backend development.
+- Django-chunked-upload: Django app for chunked file uploads.
+
+## Contributing
+
+Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.
